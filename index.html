@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shrestha 💜</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="music/birthday.mp3" type="audio/mp3">
+</audio>
+
+<!-- Welcome Screen -->
+<section id="welcome" class="screen">
+
+    <div class="stars"></div>
+
+    <h1>🎉 Happy Birthday 🎉</h1>
+
+    <h2>Shrestha 💜</h2>
+
+    <p>
+        Someone has made a special surprise only for you...
+    </p>
+
+    <button onclick="startSurprise()">
+        Open Surprise 🎁
+    </button>
+
+</section>
+
+<!-- Birthday Letter -->
+<section id="letter" class="screen hidden">
+
+<div class="card">
+
+<h2>💌 A Letter For You</h2>
+
+<p>
+
+Dear <b>Shrestha</b>,
+
+<br><br>
+
+Happy Birthday! 🎂💜
+
+You are one of the most amazing people I know. Your kindness, smile, and friendship make every moment brighter.
+
+I hope today brings you endless happiness, laughter, and unforgettable memories.
+
+May all your dreams come true and may this year be filled with success, love, and beautiful adventures.
+
+Thank you for being such an incredible friend.
+
+Have the happiest birthday ever!
+
+<br><br>
+
+❤️ — Harman
+
+</p>
+
+<button onclick="showGallery()">
+Next ➜
+</button>
+
+</div>
+
+</section>
+
+<!-- Photo Gallery -->
+
+<section id="gallery" class="screen hidden">
+
+<h2>📸 Our Memories</h2>
+
+<div class="gallery">
+
+<img src="/image1.jpeg">
+
+<img src="/image2.jpeg">
+
+<img src="/image3.jpeg">
+
+<img src="/image4.jpeg">
+
+</div>
+
+<button onclick="showPuzzle()">
+Play Puzzle 🧩
+</button>
+
+</section>
+
+<!-- Puzzle Game -->
+
+<section id="puzzle" class="screen hidden">
+
+    <h2>🧩 Complete the Puzzle</h2>
+  <img src="/puzzle.jpg">
+
+    <p>Arrange the pieces to reveal the surprise picture!</p>
+
+    <div id="puzzle-board"></div>
+
+    <button id="puzzleNext" class="hidden" onclick="showCake()">
+        Continue 🎂
+    </button>
+
+</section>
+
+<!-- JS will create puzzle -->
+</div>
+
+<button onclick="showCake()">
+
+Next 🎂
+
+</button>
+
+<section id="cake" class="screen hidden">
+
+<h2>🎂 Blow Out The Candles 🎂</h2>
+
+<div class="cake">
+
+    <div class="candle">
+        <div class="flame" id="flame"></div>
+    </div>
+
+    <div class="icing"></div>
+
+    <div class="layer"></div>
+
+</div>
+
+<p id="status">
+Click the button and blow into your microphone 🎤
+</p>
+
+<button onclick="startMic()">
+🎤 Start Microphone
+</button>
+
+<div id="wish" style="display:none;">
+
+<h1>🎉 Make A Wish! 🎉</h1>
+
+<button onclick="showGift()">
+Continue 🎁
+</button>
+
+</div>
+
+</section>
+
+
+<!-- Gift -->
+
+<section id="gift" class="screen hidden">
+
+<div class="gift-box">
+
+🎁
+
+</div>
+
+<h2>
+
+Click the Gift!
+
+</h2>
+
+<button onclick="openGift()">
+
+Open
+
+</button>
+
+</section>
+
+<!-- Final Surprise -->
+
+<section id="final" class="screen hidden">
+
+<h1>
+
+🎆 Happy Birthday Shrestha 💜
+
+</h1>
+
+<p>
+
+You deserve all the happiness in the world.
+
+Thank you for being such an amazing friend.
+
+Never stop smiling.
+
+May your life always be full of love, success and beautiful memories.
+
+❤️❤️❤️
+
+</p>
+
+<div class="fireworks">
+
+✨ 🎆 ✨ 🎇 ✨
+
+</div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
