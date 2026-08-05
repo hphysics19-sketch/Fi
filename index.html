@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +20,9 @@
 
 <!-- Welcome Screen -->
 <section id="welcome" class="screen">
-
     <div class="stars"></div>
 
     <h1>🎉 Happy Birthday 🎉</h1>
-
     <h2>Shrestha 💜</h2>
 
     <p>
@@ -35,80 +32,83 @@
     <button onclick="startSurprise()">
         Open Surprise 🎁
     </button>
-
 </section>
 
 <!-- Birthday Letter -->
 <section id="letter" class="screen hidden">
+    <div class="card">
 
-<div class="card">
+        <h2>💌 A Letter For You</h2>
 
-<h2>💌 A Letter For You</h2>
+        <p>
+            Dear <b>Shrestha</b>,
+            <br><br>
 
-<p>
+            Happy Birthday! 🎂💜
+            <br><br>
 
-Dear <b>Shrestha</b>,
+            You are one of the most amazing people I know.
+            Your kindness, smile, and friendship make every
+            moment brighter.
 
-<br><br>
+            <br><br>
 
-Happy Birthday! 🎂💜
+            I hope today brings you endless happiness,
+            laughter, and unforgettable memories.
 
-You are one of the most amazing people I know. Your kindness, smile, and friendship make every moment brighter.
+            <br><br>
 
-I hope today brings you endless happiness, laughter, and unforgettable memories.
+            May all your dreams come true and may this year
+            be filled with success, love, and beautiful adventures.
 
-May all your dreams come true and may this year be filled with success, love, and beautiful adventures.
+            <br><br>
 
-Thank you for being such an incredible friend.
+            Thank you for being such an incredible friend.
 
-Have the happiest birthday ever!
+            <br><br>
 
-<br><br>
+            Have the happiest birthday ever!
 
-❤️ — Harman
+            <br><br>
 
-</p>
+            ❤️ — Harman
+        </p>
 
-<button onclick="showGallery()">
-Next ➜
-</button>
+        <button onclick="showGallery()">
+            Next ➜
+        </button>
 
-</div>
-
+    </div>
 </section>
 
 <!-- Photo Gallery -->
-
 <section id="gallery" class="screen hidden">
 
-<h2>📸 Our Memories</h2>
+    <h2>📸 Our Memories</h2>
 
-<div class="gallery">
+    <div class="gallery">
+        <img src="image1.jpeg" alt="Memory 1">
+        <img src="image2.jpeg" alt="Memory 2">
+        <img src="image3.jpeg" alt="Memory 3">
+        <img src="image4.jpeg" alt="Memory 4">
+    </div>
 
-<img src="/image1.jpeg">
-
-<img src="/image2.jpeg">
-
-<img src="/image3.jpeg">
-
-<img src="/image4.jpeg">
-
-</div>
-
-<button onclick="showPuzzle()">
-Play Puzzle 🧩
-</button>
+    <button onclick="showPuzzle()">
+        Play Puzzle 🧩
+    </button>
 
 </section>
 
-<!-- Puzzle Game -->
-
+<!-- Puzzle -->
 <section id="puzzle" class="screen hidden">
 
     <h2>🧩 Complete the Puzzle</h2>
-  <img src="/puzzle.jpg">
 
-    <p>Arrange the pieces to reveal the surprise picture!</p>
+    <img src="puzzle.jpg" alt="Puzzle Image" class="puzzle-preview">
+
+    <p>
+        Arrange the pieces to reveal the surprise picture!
+    </p>
 
     <div id="puzzle-board"></div>
 
@@ -118,105 +118,86 @@ Play Puzzle 🧩
 
 </section>
 
-<!-- JS will create puzzle -->
-</div>
-
-<button onclick="showCake()">
-
-Next 🎂
-
-</button>
-
+<!-- Cake -->
 <section id="cake" class="screen hidden">
 
-<h2>🎂 Blow Out The Candles 🎂</h2>
+    <h2>🎂 Blow Out The Candles 🎂</h2>
 
-<div class="cake">
+    <div class="cake">
 
-    <div class="candle">
-        <div class="flame" id="flame"></div>
+        <div class="candle">
+            <div class="flame" id="flame"></div>
+        </div>
+
+        <div class="icing"></div>
+        <div class="layer"></div>
+
     </div>
 
-    <div class="icing"></div>
+    <p id="status">
+        Click the button and blow into your microphone 🎤
+    </p>
 
-    <div class="layer"></div>
+    <button onclick="startMic()">
+        🎤 Start Microphone
+    </button>
 
-</div>
+    <div id="wish" style="display:none;">
 
-<p id="status">
-Click the button and blow into your microphone 🎤
-</p>
+        <h1>🎉 Make A Wish! 🎉</h1>
 
-<button onclick="startMic()">
-🎤 Start Microphone
-</button>
+        <button onclick="showGift()">
+            Continue 🎁
+        </button>
 
-<div id="wish" style="display:none;">
-
-<h1>🎉 Make A Wish! 🎉</h1>
-
-<button onclick="showGift()">
-Continue 🎁
-</button>
-
-</div>
+    </div>
 
 </section>
-
 
 <!-- Gift -->
-
 <section id="gift" class="screen hidden">
 
-<div class="gift-box">
+    <div class="gift-box">
+        🎁
+    </div>
 
-🎁
+    <h2>
+        Click the Gift!
+    </h2>
 
-</div>
-
-<h2>
-
-Click the Gift!
-
-</h2>
-
-<button onclick="openGift()">
-
-Open
-
-</button>
+    <button onclick="openGift()">
+        Open
+    </button>
 
 </section>
 
-<!-- Final Surprise -->
-
+<!-- Final Screen -->
 <section id="final" class="screen hidden">
 
-<h1>
+    <h1>
+        🎆 Happy Birthday Shrestha 💜
+    </h1>
 
-🎆 Happy Birthday Shrestha 💜
+    <p>
+        You deserve all the happiness in the world.
+        <br><br>
 
-</h1>
+        Thank you for being such an amazing friend.
+        <br><br>
 
-<p>
+        Never stop smiling.
+        <br><br>
 
-You deserve all the happiness in the world.
+        May your life always be full of love, success,
+        and beautiful memories.
+        <br><br>
 
-Thank you for being such an amazing friend.
+        ❤️❤️❤️
+    </p>
 
-Never stop smiling.
-
-May your life always be full of love, success and beautiful memories.
-
-❤️❤️❤️
-
-</p>
-
-<div class="fireworks">
-
-✨ 🎆 ✨ 🎇 ✨
-
-</div>
+    <div class="fireworks">
+        ✨ 🎆 ✨ 🎇 ✨
+    </div>
 
 </section>
 
