@@ -389,3 +389,20 @@ padding:14px 28px;
         transform:translateX(-50%) scale(.8);
     }
 }
+.skip-btn{
+    margin-top:15px;
+    background:#ffffff;
+    color:#8e44ad;
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.skip-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px white;
+}
