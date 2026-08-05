@@ -25,8 +25,7 @@ function startSurprise() {
 
 function startSurprise() {
   document.getElementById("startBtn").addEventListener("click", () => {
-  music.play().catch(err => {
-    console.log(err);
+  music.play();
   });
 });
 }
