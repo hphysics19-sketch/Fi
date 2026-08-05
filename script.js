@@ -4,7 +4,12 @@
 // =========================
 
 // Background Music
-const music = document.getElementById("bgMusic");
+
+const bgMusic = document.getElementById("bgMusic");
+
+function playMusic() {
+    bgMusic.play();
+}
 // Show only one screen
 function showScreen(id) {
     document.querySelectorAll(".screen").forEach(screen => {
@@ -16,6 +21,7 @@ function showScreen(id) {
 
 // Start Surprise
 function startSurprise() {
+    playMusic();
     document.getElementById("bgMusic").play();
     music.play().catch(() => {});
 
