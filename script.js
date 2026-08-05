@@ -20,8 +20,7 @@ function showScreen(id) {
 }
 
 // Start Surprise
-function startSurprise() {
-    const music = document.getElementById("bgMusic");
+
 
 function startSurprise() {
   document.getElementById("startBtn").addEventListener("click", () => {
