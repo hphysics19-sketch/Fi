@@ -283,88 +283,75 @@ padding:14px 28px;
     transform:scale(1.03);
 }
 
+/* =========================
+   Puzzle
+========================= */
+
+#puzzle-board{
+    width:306px;
+    height:306px;
+    display:grid;
+    grid-template-columns:repeat(3,102px);
+    grid-template-rows:repeat(3,102px);
+    gap:2px;
+    margin:25px auto;
+}
+
+.tile{
+    width:100px;
+    height:100px;
+    cursor:pointer;
+    border:2px solid white;
+    border-radius:8px;
+    background-size:300px 300px;
+    background-repeat:no-repeat;
+    transition:.2s;
+}
+
+.tile:hover{
+    transform:scale(1.03);
+}
+
 .empty{
     background:none;
-    border:2px dashed rgba(255,255,255,..cake-container{
-position:relative;
-margin:40px auto;
-width:220px;
-height:240px;
+    border:2px dashed rgba(255,255,255,.35);
+    cursor:default;
 }
 
-.cake-body{
-position:absolute;
-bottom:0;
-width:220px;
-height:120px;
-background:#ff9ecf;
-border-radius:0 0 20px 20px;
-box-shadow:0 5px 20px rgba(0,0,0,.2);
+/* =========================
+   Puzzle Preview
+========================= */
+
+.puzzle-preview{
+    width:220px;
+    border-radius:15px;
+    border:3px solid white;
+    margin:20px auto;
 }
 
-.icing{
-position:absolute;
-top:-20px;
-width:220px;
-height:40px;
-background:#fff;
-border-radius:20px;
-}
+/* =========================
+   Cake
+========================= */
 
-.candle{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-bottom:120px;
-width:20px;
-height:70px;
-background:#6ec6ff;
-border-radius:5px;
-}
-
-.flame{
-position:absolute;
-top:-22px;
-left:50%;
-transform:translateX(-50%);
-width:18px;
-height:25px;
-background:orange;
-border-radius:50% 50% 50% 50%;
-animation:flicker .3s infinite alternate;
-box-shadow:0 0 20px yellow;
-}
-
-@keyframes flicker{
-
-0%{
-transform:translateX(-50%) scale(1);
-}
-
-100%{
-transform:translateX(-50%) scale(.8);
-}
-
-}
-      .cake-container{
+.cake{
     position:relative;
     width:220px;
     height:220px;
     margin:30px auto;
 }
 
-.cake-body{
+.layer{
     position:absolute;
     bottom:0;
     width:220px;
     height:120px;
-    background:pink;
+    background:#ff9ecf;
     border-radius:0 0 20px 20px;
 }
 
 .icing{
     position:absolute;
-    top:-15px;
+    bottom:110px;
     width:220px;
     height:30px;
     background:white;
@@ -378,20 +365,27 @@ transform:translateX(-50%) scale(.8);
     width:20px;
     height:60px;
     background:#4fc3f7;
+    border-radius:5px;
 }
 
 .flame{
     position:absolute;
-    left:3px;
+    left:50%;
+    transform:translateX(-50%);
     top:-22px;
-    width:15px;
-    height:22px;
+    width:18px;
+    height:25px;
     background:orange;
     border-radius:50%;
+    box-shadow:0 0 20px yellow;
     animation:flicker .3s infinite alternate;
 }
 
 @keyframes flicker{
-    from{transform:scale(1);}
-    to{transform:scale(.8);}
-}                     
+    from{
+        transform:translateX(-50%) scale(1);
+    }
+    to{
+        transform:translateX(-50%) scale(.8);
+    }
+}
