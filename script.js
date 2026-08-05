@@ -24,10 +24,11 @@ function startSurprise() {
     const music = document.getElementById("bgMusic");
 
 function startSurprise() {
+  document.getElementById("startBtn").addEventListener("click", () => {
   music.play().catch(err => {
-    console.log("Autoplay blocked:", err);
+    console.log(err);
   });
-
+});
   // Other code...
 }
 
