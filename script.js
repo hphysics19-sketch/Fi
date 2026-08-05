@@ -1,65 +1,46 @@
 // =========================
 // Birthday Surprise Website
+// Part 1
 // =========================
 
-// Background music
+// Background Music
 const music = document.getElementById("bgMusic");
 
-// Function to show only one screen
+// Show only one screen
 function showScreen(id) {
-    const screens = document.querySelectorAll(".screen");
-
-    screens.forEach(screen => {
+    document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.add("hidden");
     });
 
     document.getElementById(id).classList.remove("hidden");
 }
 
-// Start surprise
+// Start Surprise
 function startSurprise() {
-    music.play().catch(() => {
-        console.log("Music autoplay blocked until user interaction.");
-    });
+    music.play().catch(() => {});
 
     showScreen("letter");
 }
 
-// Show gallery
+// Navigation
 function showGallery() {
     showScreen("gallery");
 }
 
-// Show puzzle
 function showPuzzle() {
     showScreen("puzzle");
     createPuzzle();
 }
 
-// Show cake
 function showCake() {
     showScreen("cake");
 }
 
-// Blow Candles
-function blowCandles(){
-document.getElementById("flame1").style.display="none";
-
-document.getElementById("micStatus").innerHTML = "🎉 Candles Blown!";
-
-document.getElementById("wish").classList.remove("hidden");
-
-}
-
-
-// Show gift
 function showGift() {
     showScreen("gift");
 }
 
-// Open gift
 function openGift() {
-
     document.querySelector(".gift-box").innerHTML = "💖";
 
     setTimeout(() => {
@@ -72,98 +53,168 @@ function openGift() {
 // =========================
 
 let tiles = [];
+let firstLoad = true;
 
-function createPuzzle(){
+function createPuzzle() {
 
-const board = document.getElementById("puzzle-board");
+    const board = document.getElementById("puzzle-board");
 
-board.innerHTML="";
+    // Shuffle only once
+    if (firstLoad) {
+        tiles = [1,2,3,4,5,6,7,8,0];
+        shuffle();
+        firstLoad = false;
+    }
 
-tiles=[1,2,3,4,5,6,7,8,0];
+    board.innerHTML = "";
 
-shuffle();
+    tiles.forEach(value => {
 
-tiles.forEach(value=>{
+        const tile = document.createElement("div");
+        tile.className = "tile";
 
-const tile=document.createElement("div");
+        if (value === 0) {
+            tile.classList.add("empty");
+        } else {
 
-tile.classList.add("tile");
+            const row = Math.floor((value-1)/3);
+            const col = (value-1)%3;
 
-if(value===0){
+            tile.style.backgroundImage = "url('puzzle.jpg')";
+            tile.style.backgroundSize = "300px 300px";
+            tile.style.backgroundPosition =
+                `-${col*100}px -${row*100}px`;
 
-tile.classList.add("empty");
+            tile.onclick = () => moveTile(value);
+        }
 
-}else{
-
-const row=Math.floor((value-1)/3);
-
-const col=(value-1)%3;
-
-tile.style.backgroundPosition=`-${col*100}px -${row*100}px`;
-
-}
-
-tile.onclick=()=>moveTile(value);
-
-board.appendChild(tile);
-
-});
-
-}
-
-function shuffle(){
-
-for(let i=tiles.length-1;i>0;i--){
-
-let j=Math.floor(Math.random()*(i+1));
-
-[tiles[i],tiles[j]]=[tiles[j],tiles[i]];
+        board.appendChild(tile);
+    });
 
 }
+
+function shuffle() {
+
+    for(let i=tiles.length-1;i>0;i--){
+
+        const j=Math.floor(Math.random()*(i+1));
+
+        [tiles[i],tiles[j]]=[tiles[j],tiles[i]];
+    }
 
 }
 
 function moveTile(value){
 
-const empty=tiles.indexOf(0);
+    const empty=tiles.indexOf(0);
 
-const index=tiles.indexOf(value);
+    const index=tiles.indexOf(value);
 
-const allowed=[
-empty-1,
-empty+1,
-empty-3,
-empty+3
-];
+    const valid=[];
 
-if(allowed.includes(index)){
+    if(index-1===empty && index%3!==0) valid.push(empty);
 
-[tiles[index],tiles[empty]]=[tiles[empty],tiles[index]];
+    if(index+1===empty && empty%3!==0) valid.push(empty);
 
-createPuzzle();
+    if(index-3===empty) valid.push(empty);
 
-checkSolved();
+    if(index+3===empty) valid.push(empty);
 
-}
+    if(valid.length){
+
+        [tiles[index],tiles[empty]]=[tiles[empty],tiles[index]];
+
+        createPuzzle();
+
+        checkSolved();
+
+    }
 
 }
 
 function checkSolved(){
 
-const solved=[1,2,3,4,5,6,7,8,0];
+    const solved=[1,2,3,4,5,6,7,8,0];
 
-if(JSON.stringify(tiles)==JSON.stringify(solved)){
+    if(JSON.stringify(tiles)===JSON.stringify(solved)){
 
-alert("🎉 Puzzle Solved!");
+        alert("🎉 Puzzle Solved!");
 
-document.getElementById("puzzleNext").classList.remove("hidden");
-
-}
+        document.getElementById("puzzleNext")
+            .classList.remove("hidden");
+    }
 
 }
 // =========================
-// Floating Hearts
+// Part 2
+// Microphone + Effects
 // =========================
+
+// ---------- Microphone ----------
+async function startMic() {
+
+    const status = document.getElementById("status");
+    const flame = document.getElementById("flame");
+    const wish = document.getElementById("wish");
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        status.innerHTML = "❌ Microphone is not supported on this device.";
+        return;
+    }
+
+    try {
+
+        status.innerHTML = "🎤 Listening... Blow towards the microphone!";
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        const analyser = audioContext.createAnalyser();
+
+        const microphone = audioContext.createMediaStreamSource(stream);
+
+        microphone.connect(analyser);
+
+        analyser.fftSize = 256;
+
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        function detectBlow() {
+
+            analyser.getByteFrequencyData(dataArray);
+
+            let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+            if (volume > 45) {
+
+                flame.style.display = "none";
+
+                status.innerHTML = "🎉 Candles Blown! Make a wish!";
+
+                wish.style.display = "block";
+
+                stream.getTracks().forEach(track => track.stop());
+
+                return;
+            }
+
+            requestAnimationFrame(detectBlow);
+        }
+
+        detectBlow();
+
+    } catch (err) {
+
+        status.innerHTML = "❌ Microphone permission denied.";
+
+    }
+
+}
+
+// ---------- Floating Hearts ----------
 
 setInterval(() => {
 
@@ -173,46 +224,55 @@ setInterval(() => {
 
     heart.style.position = "fixed";
     heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "-30px";
-    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    heart.style.bottom = "-40px";
+    heart.style.fontSize = (18 + Math.random() * 20) + "px";
     heart.style.pointerEvents = "none";
     heart.style.transition = "all 5s linear";
+    heart.style.zIndex = "999";
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
+
         heart.style.bottom = "110%";
         heart.style.opacity = "0";
-    }, 100);
+
+    }, 50);
 
     setTimeout(() => {
+
         heart.remove();
+
     }, 5200);
 
-}, 500);
+}, 700);
 
-// =========================
-// Firework Effect (Simple)
-// =========================
+// ---------- Fireworks ----------
 
 setInterval(() => {
 
-    if (!document.getElementById("final").classList.contains("hidden")) {
+    const finalScreen = document.getElementById("final");
 
-        const firework = document.createElement("div");
+    if (!finalScreen.classList.contains("hidden")) {
 
-        firework.innerHTML = "🎆";
+        const fire = document.createElement("div");
 
-        firework.style.position = "fixed";
-        firework.style.left = Math.random() * window.innerWidth + "px";
-        firework.style.top = Math.random() * window.innerHeight + "px";
-        firework.style.fontSize = "50px";
+        fire.innerHTML = ["🎆", "✨", "🎇"][Math.floor(Math.random() * 3)];
 
-        document.body.appendChild(firework);
+        fire.style.position = "fixed";
+        fire.style.left = Math.random() * window.innerWidth + "px";
+        fire.style.top = Math.random() * window.innerHeight + "px";
+        fire.style.fontSize = (30 + Math.random() * 30) + "px";
+        fire.style.pointerEvents = "none";
+        fire.style.zIndex = "999";
+
+        document.body.appendChild(fire);
 
         setTimeout(() => {
-            firework.remove();
+
+            fire.remove();
+
         }, 1000);
     }
 
-}, 400);
+}, 350);
