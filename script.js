@@ -21,9 +21,15 @@ function showScreen(id) {
 
 // Start Surprise
 function startSurprise() {
-    playMusic();
-    document.getElementById("bgMusic").play();
-    music.play().catch(() => {});
+    const music = document.getElementById("bgMusic");
+
+function startSurprise() {
+  music.play().catch(err => {
+    console.log("Autoplay blocked:", err);
+  });
+
+  // Other code...
+}
 
     showScreen("letter");
 }
