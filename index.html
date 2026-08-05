@@ -10,7 +10,6 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <!-- Background Music -->
@@ -18,8 +17,11 @@
     <source src="music/birthday.mp3" type="audio/mp3">
 </audio>
 
-<!-- Welcome Screen -->
+<!-- =========================
+     Welcome Screen
+========================= -->
 <section id="welcome" class="screen">
+
     <div class="stars"></div>
 
     <h1>🎉 Happy Birthday 🎉</h1>
@@ -32,10 +34,14 @@
     <button onclick="startSurprise()">
         Open Surprise 🎁
     </button>
+
 </section>
 
-<!-- Birthday Letter -->
+<!-- =========================
+     Letter
+========================= -->
 <section id="letter" class="screen hidden">
+
     <div class="card">
 
         <h2>💌 A Letter For You</h2>
@@ -48,27 +54,21 @@
             <br><br>
 
             You are one of the most amazing people I know.
-            Your kindness, smile, and friendship make every
-            moment brighter.
-
+            Your kindness, smile and friendship make every moment brighter.
             <br><br>
 
             I hope today brings you endless happiness,
-            laughter, and unforgettable memories.
-
+            laughter and unforgettable memories.
             <br><br>
 
-            May all your dreams come true and may this year
-            be filled with success, love, and beautiful adventures.
-
+            May all your dreams come true and this year
+            be filled with success, love and beautiful adventures.
             <br><br>
 
             Thank you for being such an incredible friend.
-
             <br><br>
 
             Have the happiest birthday ever!
-
             <br><br>
 
             ❤️ — Harman
@@ -79,18 +79,23 @@
         </button>
 
     </div>
+
 </section>
 
-<!-- Photo Gallery -->
+<!-- =========================
+     Gallery
+========================= -->
 <section id="gallery" class="screen hidden">
 
     <h2>📸 Our Memories</h2>
 
     <div class="gallery">
+
         <img src="image1.jpeg" alt="Memory 1">
         <img src="image2.jpeg" alt="Memory 2">
         <img src="image3.jpeg" alt="Memory 3">
         <img src="image4.jpeg" alt="Memory 4">
+
     </div>
 
     <button onclick="showPuzzle()">
@@ -99,12 +104,14 @@
 
 </section>
 
-<!-- Puzzle -->
+<!-- =========================
+     Puzzle
+========================= -->
 <section id="puzzle" class="screen hidden">
 
     <h2>🧩 Complete the Puzzle</h2>
 
-    <img src="puzzle.jpg" alt="Puzzle Image" class="puzzle-preview">
+    <img src="puzzle.jpg" alt="Puzzle" class="puzzle-preview">
 
     <p>
         Arrange the pieces to reveal the surprise picture!
@@ -118,19 +125,22 @@
 
 </section>
 
-<!-- Cake -->
+<!-- =========================
+     Cake
+========================= -->
 <section id="cake" class="screen hidden">
 
-    <h2>🎂 Blow Out The Candles 🎂</h2>
+    <h2>🎂 Blow Out The Candle 🎂</h2>
 
     <div class="cake">
+
+        <div class="layer"></div>
+
+        <div class="icing"></div>
 
         <div class="candle">
             <div class="flame" id="flame"></div>
         </div>
-
-        <div class="icing"></div>
-        <div class="layer"></div>
 
     </div>
 
@@ -142,7 +152,7 @@
         🎤 Start Microphone
     </button>
 
-    <div id="wish" style="display:none;">
+    <div id="wish" class="hidden">
 
         <h1>🎉 Make A Wish! 🎉</h1>
 
@@ -154,29 +164,29 @@
 
 </section>
 
-<!-- Gift -->
+<!-- =========================
+     Gift
+========================= -->
 <section id="gift" class="screen hidden">
 
     <div class="gift-box">
         🎁
     </div>
 
-    <h2>
-        Click the Gift!
-    </h2>
+    <h2>Click the Gift!</h2>
 
     <button onclick="openGift()">
-        Open
+        Open Gift 🎁
     </button>
 
 </section>
 
-<!-- Final Screen -->
+<!-- =========================
+     Final Screen
+========================= -->
 <section id="final" class="screen hidden">
 
-    <h1>
-        🎆 Happy Birthday Shrestha 💜
-    </h1>
+    <h1>🎆 Happy Birthday Shrestha 💜</h1>
 
     <p>
         You deserve all the happiness in the world.
@@ -188,11 +198,11 @@
         Never stop smiling.
         <br><br>
 
-        May your life always be full of love, success,
-        and beautiful memories.
+        May your life always be filled with love,
+        success and beautiful memories.
         <br><br>
 
-        ❤️❤️❤️
+        ❤️ Happy Birthday Once Again ❤️
     </p>
 
     <div class="fireworks">
