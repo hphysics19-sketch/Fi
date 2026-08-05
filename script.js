@@ -29,7 +29,6 @@ function startSurprise() {
     console.log(err);
   });
 });
-  // Other code...
 }
 
     showScreen("letter");
