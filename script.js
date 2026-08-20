@@ -24,7 +24,7 @@ function showScreen(id) {
 
 function startSurprise() {
   document.getElementById("startBtn").addEventListener("click", () => {
-  music.play();
+  bgmusic.play();
   });
 });
 }
