@@ -4,35 +4,64 @@
 // =========================
 
 // Background Music
-
 const bgMusic = document.getElementById("bgMusic");
 
 function playMusic() {
-    bgMusic.play();
+    if (bgMusic) {
+        bgMusic.play().catch(error => {
+            console.log("Music could not start:", error);
+        });
+    }
 }
+
+
+// =========================
 // Show only one screen
+// =========================
+
 function showScreen(id) {
+
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.add("hidden");
     });
 
-    document.getElementById(id).classList.remove("hidden");
+    const selectedScreen = document.getElementById(id);
+
+    if (selectedScreen) {
+        selectedScreen.classList.remove("hidden");
+    }
 }
 
-// Start Surprise
 
+// =========================
+// Start Surprise
+// =========================
 
 function startSurprise() {
-  document.getElementById("startBtn").addEventListener("click", () => {
-  bgMusic.play();
-  });
-});
+
+    const startBtn = document.getElementById("startBtn");
+
+    if (!startBtn) {
+        console.log("startBtn not found");
+        return;
+    }
+
+    startBtn.addEventListener("click", () => {
+
+        // Start music
+        playMusic();
+
+        // Go to letter screen
+        showScreen("letter");
+
+    });
 }
 
-    showScreen("letter");
-}
 
+// =========================
 // Navigation
+// =========================
+
 function showGallery() {
     showScreen("gallery");
 }
@@ -51,12 +80,18 @@ function showGift() {
 }
 
 function openGift() {
-    document.querySelector(".gift-box").innerHTML = "💖";
+
+    const giftBox = document.querySelector(".gift-box");
+
+    if (giftBox) {
+        giftBox.innerHTML = "💖";
+    }
 
     setTimeout(() => {
         showScreen("final");
     }, 1500);
 }
+
 
 // =========================
 // Puzzle Game
@@ -69,10 +104,18 @@ function createPuzzle() {
 
     const board = document.getElementById("puzzle-board");
 
+    if (!board) {
+        console.log("puzzle-board not found");
+        return;
+    }
+
     // Shuffle only once
     if (firstLoad) {
-        tiles = [1,2,3,4,5,6,7,8,0];
+
+        tiles = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+
         shuffle();
+
         firstLoad = false;
     }
 
@@ -81,132 +124,191 @@ function createPuzzle() {
     tiles.forEach(value => {
 
         const tile = document.createElement("div");
+
         tile.className = "tile";
 
         if (value === 0) {
+
             tile.classList.add("empty");
+
         } else {
 
-            const row = Math.floor((value-1)/3);
-            const col = (value-1)%3;
+            const row = Math.floor((value - 1) / 3);
+            const col = (value - 1) % 3;
 
             tile.style.backgroundImage = "url('puzzle.jpg')";
             tile.style.backgroundSize = "300px 300px";
+
             tile.style.backgroundPosition =
-                `-${col*100}px -${row*100}px`;
+                `-${col * 100}px -${row * 100}px`;
 
             tile.onclick = () => moveTile(value);
         }
 
         board.appendChild(tile);
     });
-
 }
+
+
+// =========================
+// Shuffle Puzzle
+// =========================
 
 function shuffle() {
 
-    for(let i=tiles.length-1;i>0;i--){
+    for (let i = tiles.length - 1; i > 0; i--) {
 
-        const j=Math.floor(Math.random()*(i+1));
+        const j = Math.floor(Math.random() * (i + 1));
 
-        [tiles[i],tiles[j]]=[tiles[j],tiles[i]];
+        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
     }
-
 }
 
-function moveTile(value){
 
-    const empty=tiles.indexOf(0);
+// =========================
+// Move Puzzle Tile
+// =========================
 
-    const index=tiles.indexOf(value);
+function moveTile(value) {
 
-    const valid=[];
+    const empty = tiles.indexOf(0);
 
-    if(index-1===empty && index%3!==0) valid.push(empty);
+    const index = tiles.indexOf(value);
 
-    if(index+1===empty && empty%3!==0) valid.push(empty);
+    const valid = [];
 
-    if(index-3===empty) valid.push(empty);
+    if (index - 1 === empty && index % 3 !== 0) {
+        valid.push(empty);
+    }
 
-    if(index+3===empty) valid.push(empty);
+    if (index + 1 === empty && empty % 3 !== 0) {
+        valid.push(empty);
+    }
 
-    if(valid.length){
+    if (index - 3 === empty) {
+        valid.push(empty);
+    }
 
-        [tiles[index],tiles[empty]]=[tiles[empty],tiles[index]];
+    if (index + 3 === empty) {
+        valid.push(empty);
+    }
+
+    if (valid.length) {
+
+        [tiles[index], tiles[empty]] =
+            [tiles[empty], tiles[index]];
 
         createPuzzle();
 
         checkSolved();
-
     }
-
 }
 
-function checkSolved(){
 
-    const solved=[1,2,3,4,5,6,7,8,0];
+// =========================
+// Check Puzzle
+// =========================
 
-    if(JSON.stringify(tiles)===JSON.stringify(solved)){
+function checkSolved() {
+
+    const solved = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+
+    if (JSON.stringify(tiles) === JSON.stringify(solved)) {
 
         alert("🎉 Puzzle Solved!");
 
-        document.getElementById("puzzleNext")
-            .classList.remove("hidden");
-    }
+        const nextButton = document.getElementById("puzzleNext");
 
+        if (nextButton) {
+            nextButton.classList.remove("hidden");
+        }
+    }
 }
+
+
 // =========================
 // Part 2
 // Microphone + Effects
 // =========================
 
+
 // ---------- Microphone ----------
+
 async function startMic() {
 
     const status = document.getElementById("status");
     const flame = document.getElementById("flame");
     const wish = document.getElementById("wish");
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        status.innerHTML = "❌ Microphone is not supported on this device.";
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
+
+        if (status) {
+            status.innerHTML =
+                "❌ Microphone is not supported on this device.";
+        }
+
         return;
     }
 
     try {
 
-        status.innerHTML = "🎤 Listening... Blow towards the microphone!";
+        if (status) {
+            status.innerHTML =
+                "🎤 Listening... Blow towards the microphone!";
+        }
 
-        const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true
-        });
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
 
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
 
-        const analyser = audioContext.createAnalyser();
+        const audioContext = new AudioContext();
 
-        const microphone = audioContext.createMediaStreamSource(stream);
+        const analyser =
+            audioContext.createAnalyser();
+
+        const microphone =
+            audioContext.createMediaStreamSource(stream);
 
         microphone.connect(analyser);
 
         analyser.fftSize = 256;
 
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        const dataArray =
+            new Uint8Array(analyser.frequencyBinCount);
+
 
         function detectBlow() {
 
             analyser.getByteFrequencyData(dataArray);
 
-            let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+            let volume =
+                dataArray.reduce((a, b) => a + b) /
+                dataArray.length;
 
             if (volume > 45) {
 
-                flame.style.display = "none";
+                if (flame) {
+                    flame.style.display = "none";
+                }
 
-                status.innerHTML = "🎉 Candles Blown! Make a wish!";
+                if (status) {
+                    status.innerHTML =
+                        "🎉 Candles Blown! Make a wish!";
+                }
 
-                wish.style.display = "block";
+                if (wish) {
+                    wish.style.display = "block";
+                }
 
-                stream.getTracks().forEach(track => track.stop());
+                stream.getTracks().forEach(track => {
+                    track.stop();
+                });
 
                 return;
             }
@@ -218,13 +320,19 @@ async function startMic() {
 
     } catch (err) {
 
-        status.innerHTML = "❌ Microphone permission denied.";
+        console.log(err);
 
+        if (status) {
+            status.innerHTML =
+                "❌ Microphone permission denied.";
+        }
     }
-
 }
 
-// ---------- Floating Hearts ----------
+
+// =========================
+// Floating Hearts
+// =========================
 
 setInterval(() => {
 
@@ -233,21 +341,33 @@ setInterval(() => {
     heart.innerHTML = "💜";
 
     heart.style.position = "fixed";
-    heart.style.left = Math.random() * window.innerWidth + "px";
+
+    heart.style.left =
+        Math.random() * window.innerWidth + "px";
+
     heart.style.bottom = "-40px";
-    heart.style.fontSize = (18 + Math.random() * 20) + "px";
+
+    heart.style.fontSize =
+        (18 + Math.random() * 20) + "px";
+
     heart.style.pointerEvents = "none";
-    heart.style.transition = "all 5s linear";
+
+    heart.style.transition =
+        "all 5s linear";
+
     heart.style.zIndex = "999";
 
     document.body.appendChild(heart);
 
+
     setTimeout(() => {
 
         heart.style.bottom = "110%";
+
         heart.style.opacity = "0";
 
     }, 50);
+
 
     setTimeout(() => {
 
@@ -257,26 +377,43 @@ setInterval(() => {
 
 }, 700);
 
-// ---------- Fireworks ----------
+
+// =========================
+// Fireworks
+// =========================
 
 setInterval(() => {
 
-    const finalScreen = document.getElementById("final");
+    const finalScreen =
+        document.getElementById("final");
 
-    if (!finalScreen.classList.contains("hidden")) {
+    if (finalScreen &&
+        !finalScreen.classList.contains("hidden")) {
 
-        const fire = document.createElement("div");
+        const fire =
+            document.createElement("div");
 
-        fire.innerHTML = ["🎆", "✨", "🎇"][Math.floor(Math.random() * 3)];
+        fire.innerHTML =
+            ["🎆", "✨", "🎇"]
+            [Math.floor(Math.random() * 3)];
 
         fire.style.position = "fixed";
-        fire.style.left = Math.random() * window.innerWidth + "px";
-        fire.style.top = Math.random() * window.innerHeight + "px";
-        fire.style.fontSize = (30 + Math.random() * 30) + "px";
+
+        fire.style.left =
+            Math.random() * window.innerWidth + "px";
+
+        fire.style.top =
+            Math.random() * window.innerHeight + "px";
+
+        fire.style.fontSize =
+            (30 + Math.random() * 30) + "px";
+
         fire.style.pointerEvents = "none";
+
         fire.style.zIndex = "999";
 
         document.body.appendChild(fire);
+
 
         setTimeout(() => {
 
@@ -286,3 +423,14 @@ setInterval(() => {
     }
 
 }, 350);
+
+
+// =========================
+// Start JavaScript
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    startSurprise();
+
+});
